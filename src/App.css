@@ -1,6 +1,6 @@
 :root {
   --type-first: Helvetica, Arial, sans-serif;
-  --type-second: "Spectral", Georgia;
+  --type-second: "Spectral", georgia;
 }
 
 * {
@@ -41,10 +41,57 @@ input {
   color: #333333;
 }
 
+a {
+  text-decoration: none;
+  color: #333;
+}
+
 .container {
   max-width: 50rem;
   padding: 0 1rem;
   margin: 0 auto;
+}
+
+.title {
+  margin: 1rem 0;
+
+  font-family: var(--type-second);
+  font-size: 3rem;
+  line-height: 1;
+
+  z-index: 1;
+
+  position: relative;
+}
+
+.title::before {
+  content: "";
+  width: 1.5rem;
+  height: 1.5rem;
+
+  border-radius: 0.25rem;
+  background: #fb1;
+
+  display: block;
+
+  z-index: -1;
+
+  position: absolute;
+  bottom: 5px;
+  left: -5px;
+}
+
+.animationLeft {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: animationLeft 0.3s forwards;
+}
+
+@keyframes animationLeft {
+  to {
+    opacity: 1;
+    transform: initial;
+  }
 }
 
 @media (max-width: 1080px) {
