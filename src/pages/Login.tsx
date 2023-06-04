@@ -1,15 +1,11 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ToastContainer, toast } from "react-toastify";
-import axios from "axios";
 
 import { Button } from "../components/Form/Button";
 import { Input } from "../components/Form/Input";
 
 import { useAuthContext } from "../contexts/AuthContext";
-
-import "react-toastify/dist/ReactToastify.css";
 
 const loginFormValidationSchema = z.object({
   username: z
@@ -43,24 +39,7 @@ export function Login() {
   });
 
   async function handleLogin({ username, password }: LoginFormFields) {
-    try {
-      await login(username, password);
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 403) {
-        toast.warning("Dados incorretos.", {
-          theme: "colored"
-        });
-
-        return;
-      }
-
-      toast.error(
-        "Ocorreu um erro ao fazer login, tente novamente mais tarde.",
-        {
-          theme: "colored"
-        }
-      );
-    }
+    await login(username, password);
   }
 
   return (
@@ -86,8 +65,6 @@ export function Login() {
           Entrar
         </Button>
       </form>
-
-      <ToastContainer />
     </section>
   );
 }

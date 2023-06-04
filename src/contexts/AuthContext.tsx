@@ -1,4 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import { api } from "../libs/axios";
 import { authService } from "../services/auth";
@@ -15,6 +18,7 @@ interface AuthContextData {
   isAuthenticated: boolean;
   user: UserData | null;
   login: (username: string, password: string) => Promise<void>;
+  logout: () => void;
 }
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -27,23 +31,56 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [user, setUser] = useState<UserData | null>(null);
   const isAuthenticated = !!user;
 
-  async function getUserData() {
-    const { id, name, username, email } = await userService.getUserData();
+  const navigate = useNavigate();
 
-    setUser({ id, name, username, email });
+  async function getUserData() {
+    try {
+      const { id, name, username, email } = await userService.getUserData();
+
+      setUser({ id, name, username, email });
+    } catch (error) {
+      // Do nothing
+    }
   }
 
   async function login(username: string, password: string) {
-    const { token } = await authService.login({
-      username,
-      password
-    });
+    try {
+      const { token } = await authService.login({
+        username,
+        password
+      });
 
-    localStorage.setItem("token", token);
+      localStorage.setItem("token", token);
 
-    api.defaults.headers["Authorization"] = `Bearer ${token}`;
+      api.defaults.headers["Authorization"] = `Bearer ${token}`;
 
-    getUserData();
+      getUserData();
+
+      navigate("/account");
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 403) {
+        toast.warning("Dados incorretos.", {
+          theme: "colored"
+        });
+
+        return;
+      }
+
+      toast.error(
+        "Ocorreu um erro ao fazer login, tente novamente mais tarde.",
+        {
+          theme: "colored"
+        }
+      );
+    }
+  }
+
+  function logout() {
+    setUser(null);
+
+    localStorage.removeItem("token");
+
+    navigate("/login");
   }
 
   return (
@@ -51,7 +88,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       value={{
         isAuthenticated,
         user,
-        login
+        login,
+        logout
       }}
     >
       {children}
