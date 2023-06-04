@@ -62,7 +62,7 @@ export function Login() {
         />
 
         <Button type="submit" disabled={isSubmitting}>
-          Entrar
+          {isSubmitting ? "Carregando..." : "Entrar"}
         </Button>
       </form>
     </section>
