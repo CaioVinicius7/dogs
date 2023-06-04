@@ -30,7 +30,8 @@ export function Login() {
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm<LoginFormFields>({
-    resolver: zodResolver(loginFormValidationSchema)
+    resolver: zodResolver(loginFormValidationSchema),
+    shouldFocusError: true
   });
 
   function handleSignIn(data: LoginFormFields) {
