@@ -5,6 +5,9 @@ import { z } from "zod";
 import { Button } from "../components/Form/Button";
 import { Input } from "../components/Form/Input";
 
+import { authService } from "../services/auth";
+import { api } from "../libs/axios";
+
 const loginFormValidationSchema = z.object({
   username: z
     .string({
@@ -34,8 +37,15 @@ export function Login() {
     shouldFocusError: true
   });
 
-  function handleSignIn(data: LoginFormFields) {
-    console.log(data);
+  async function handleSignIn({ username, password }: LoginFormFields) {
+    const { token } = await authService.login({
+      username,
+      password
+    });
+
+    localStorage.setItem("token", token);
+
+    api.defaults.headers["Authorization"] = `Bearer ${token}`;
   }
 
   return (
