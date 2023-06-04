@@ -5,8 +5,7 @@ import { z } from "zod";
 import { Button } from "../components/Form/Button";
 import { Input } from "../components/Form/Input";
 
-import { authService } from "../services/auth";
-import { api } from "../libs/axios";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const loginFormValidationSchema = z.object({
   username: z
@@ -28,6 +27,8 @@ const loginFormValidationSchema = z.object({
 type LoginFormFields = z.infer<typeof loginFormValidationSchema>;
 
 export function Login() {
+  const { login } = useAuthContext();
+
   const {
     register,
     handleSubmit,
@@ -37,22 +38,15 @@ export function Login() {
     shouldFocusError: true
   });
 
-  async function handleSignIn({ username, password }: LoginFormFields) {
-    const { token } = await authService.login({
-      username,
-      password
-    });
-
-    localStorage.setItem("token", token);
-
-    api.defaults.headers["Authorization"] = `Bearer ${token}`;
+  async function handleLogin({ username, password }: LoginFormFields) {
+    await login(username, password);
   }
 
   return (
     <section>
       <h1>Login</h1>
 
-      <form onSubmit={handleSubmit(handleSignIn)}>
+      <form onSubmit={handleSubmit(handleLogin)}>
         <Input
           type="text"
           error={errors.username?.message}
