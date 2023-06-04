@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState
+} from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -82,6 +88,16 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
     navigate("/login");
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      api.defaults.headers["Authorization"] = `Bearer ${token}`;
+
+      getUserData();
+    }
+  }, []);
 
   return (
     <AuthContext.Provider
