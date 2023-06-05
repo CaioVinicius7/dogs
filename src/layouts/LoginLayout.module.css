@@ -1,0 +1,35 @@
+.container {
+  min-height: calc(100vh - 4rem - 2rem); /* 100vh - header - footer */
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.container::before {
+  content: "";
+
+  background: url("../assets/login.jpg") no-repeat center center;
+  background-size: cover;
+
+  display: block;
+}
+
+.content {
+  max-width: 30rem;
+  padding: 1rem;
+}
+
+@media (max-width: 40rem) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .container::before {
+    display: none;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+}

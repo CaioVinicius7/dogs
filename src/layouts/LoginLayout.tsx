@@ -3,6 +3,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "../contexts/AuthContext";
 
+import styles from "./LoginLayout.module.css";
+
 export function LoginLayout() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthContext();
@@ -14,8 +16,10 @@ export function LoginLayout() {
   }, [navigate, isAuthenticated]);
 
   return (
-    <div className="container">
-      <Outlet />
-    </div>
+    <main className={styles.container}>
+      <div className={styles.content}>
+        <Outlet />
+      </div>
+    </main>
   );
 }
