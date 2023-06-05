@@ -1,0 +1,47 @@
+.form {
+  margin-bottom: 2rem;
+}
+
+.passwordLost {
+  padding: 0.5rem 0;
+
+  color: #666;
+  line-height: 1;
+
+  display: inline-block;
+}
+
+.passwordLost::after {
+  content: "";
+  height: 2px;
+  width: 100%;
+
+  background: currentColor;
+
+  display: block;
+}
+
+.register {
+  margin-top: 4rem;
+}
+
+.register p {
+  margin: 2rem 0;
+}
+
+.subtitle {
+  font-family: var(--type-second);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.subtitle::after {
+  content: "";
+  width: 3rem;
+  height: 0.5rem;
+
+  border-radius: 0.25rem;
+  background: #ddd;
+
+  display: block;
+}

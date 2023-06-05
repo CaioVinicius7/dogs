@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -6,6 +7,9 @@ import { Button } from "../components/Form/Button";
 import { Input } from "../components/Form/Input";
 
 import { useAuthContext } from "../contexts/AuthContext";
+
+import styles from "./Login.module.css";
+import buttonStyles from "../components/Form/Button.module.css";
 
 const loginFormValidationSchema = z.object({
   username: z
@@ -43,10 +47,10 @@ export function Login() {
   }
 
   return (
-    <section>
-      <h1>Login</h1>
+    <section className="animationLeft">
+      <h1 className="title">Login</h1>
 
-      <form onSubmit={handleSubmit(handleLogin)}>
+      <form onSubmit={handleSubmit(handleLogin)} className={styles.form}>
         <Input
           type="text"
           error={errors.username?.message}
@@ -65,6 +69,20 @@ export function Login() {
           {isSubmitting ? "Carregando..." : "Entrar"}
         </Button>
       </form>
+
+      <Link to="/login/password/lost" className={styles.passwordLost}>
+        Perdeu a senha?
+      </Link>
+
+      <div className={styles.register}>
+        <h2 className={styles.subtitle}>Cadastre-se</h2>
+
+        <p>Ainda não possui conta? Cadastre-se no site.</p>
+
+        <Link to="/login/create" className={buttonStyles.button}>
+          Cadastro
+        </Link>
+      </div>
     </section>
   );
 }
