@@ -53,6 +53,7 @@ export function Login() {
       <form onSubmit={handleSubmit(handleLogin)} className={styles.form}>
         <Input
           type="text"
+          label="Usuário"
           error={errors.username?.message}
           autoComplete="off"
           {...register("username")}
