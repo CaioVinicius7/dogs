@@ -5,7 +5,7 @@ import {
   useEffect,
   useState
 } from "react";
-import axios from "axios";
+import { isAxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -64,7 +64,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
       navigate("/account");
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 403) {
+      if (isAxiosError(error) && error.response?.status === 403) {
         toast.warning("Dados incorretos.", {
           theme: "colored"
         });
