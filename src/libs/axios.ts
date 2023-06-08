@@ -13,6 +13,6 @@ api.interceptors.response.use(
       localStorage.removeItem("token");
     }
 
-    return error;
+    return Promise.reject(error);
   }
 );
