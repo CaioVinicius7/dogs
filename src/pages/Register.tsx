@@ -1,9 +1,16 @@
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { isAxiosError } from "axios";
 
 import { Button } from "../components/Form/Button";
 import { Input } from "../components/Form/Input";
+
+import { userService } from "../services/user";
+import { useAuthContext } from "../contexts/AuthContext";
+
+const EMAIL_ALREADY_REGISTERED_ERROR = "Email já cadastrado";
 
 const registerFormValidationSchema = z
   .object({
@@ -48,24 +55,54 @@ const registerFormValidationSchema = z
 type RegisterFormFields = z.infer<typeof registerFormValidationSchema>;
 
 export function Register() {
+  const { login } = useAuthContext();
+
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting }
   } = useForm<RegisterFormFields>({
     resolver: zodResolver(registerFormValidationSchema),
     shouldFocusError: true
   });
 
-  function handleRegister({ username, email, password }: RegisterFormFields) {
-    console.log({ username, email, password });
+  async function handleRegisterAndLogin({
+    username,
+    email,
+    password
+  }: RegisterFormFields) {
+    try {
+      await userService.register({
+        username,
+        email,
+        password
+      });
+
+      toast.success("Cadastro realizado com sucesso.");
+
+      await login(username, password);
+    } catch (error) {
+      if (
+        isAxiosError(error) &&
+        error.response?.data.message === EMAIL_ALREADY_REGISTERED_ERROR
+      ) {
+        setError("email", {
+          message: "Email já cadastrado."
+        });
+
+        return;
+      }
+
+      toast.error("Ocorreu um erro inesperado ao realizar o cadastro.");
+    }
   }
 
   return (
     <section className="animationLeft">
       <h1 className="title">Cadastre-se</h1>
 
-      <form onSubmit={handleSubmit(handleRegister)}>
+      <form onSubmit={handleSubmit(handleRegisterAndLogin)}>
         <Input
           type="text"
           label="Usuário"
