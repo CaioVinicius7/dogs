@@ -8,7 +8,7 @@ import { Button } from "../components/Form/Button";
 import { Input } from "../components/Form/Input";
 
 import { userService } from "../services/user";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const EMAIL_ALREADY_REGISTERED_ERROR = "Email já cadastrado";
 

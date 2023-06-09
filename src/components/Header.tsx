@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./Header.module.css";
 
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 import { ReactComponent as DogIcon } from "../assets/dog-icon.svg";
 

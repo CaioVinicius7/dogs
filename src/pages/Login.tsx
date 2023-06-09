@@ -6,10 +6,10 @@ import { z } from "zod";
 import { Button } from "../components/Form/Button";
 import { Input } from "../components/Form/Input";
 
-import { useAuthContext } from "../contexts/AuthContext";
-
 import styles from "./Login.module.css";
 import buttonStyles from "../components/Form/Button.module.css";
+
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const loginFormValidationSchema = z.object({
   username: z

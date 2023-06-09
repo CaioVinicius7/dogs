@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 import styles from "./LoginLayout.module.css";
 

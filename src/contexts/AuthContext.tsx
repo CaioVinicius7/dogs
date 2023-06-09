@@ -1,10 +1,4 @@
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState
-} from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { isAxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -111,10 +105,4 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuthContext() {
-  const context = useContext(AuthContext);
-
-  return context;
 }
