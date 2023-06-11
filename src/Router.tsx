@@ -7,11 +7,16 @@ import { Register } from "./pages/Register";
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { LoginLayout } from "./layouts/LoginLayout";
 
+import { PrivateRoutes } from "./helpers/PrivateRoutes";
+
 export function Router() {
   return (
     <Routes>
       <Route element={<DefaultLayout />}>
-        <Route path="/" element={<Home />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/account" element={<h1>Account</h1>} />
+        </Route>
 
         <Route path="/login/*" element={<LoginLayout />}>
           <Route index element={<Login />} />
