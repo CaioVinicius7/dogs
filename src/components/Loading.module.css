@@ -1,0 +1,7 @@
+.wrapper {
+  width: 100%;
+  height: calc(100vh - 4rem - 2rem); /* 100vh - header - footer */
+
+  display: grid;
+  place-items: center;
+}
