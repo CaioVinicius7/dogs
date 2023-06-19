@@ -6,6 +6,7 @@ import { Register } from "./pages/Register";
 
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { LoginLayout } from "./layouts/LoginLayout";
+import { AccountLayout } from "./layouts/AccountLayout";
 
 import { PrivateRoutes } from "./helpers/PrivateRoutes";
 
@@ -15,7 +16,12 @@ export function Router() {
       <Route element={<DefaultLayout />}>
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Home />} />
-          <Route path="/account" element={<h1>Account</h1>} />
+
+          <Route path="/account/*" element={<AccountLayout />}>
+            <Route index element={<h2>Account</h2>} />
+            <Route path="stats" element={<h2>Stats</h2>} />
+            <Route path="post" element={<h2>Post</h2>} />
+          </Route>
         </Route>
 
         <Route path="/login/*" element={<LoginLayout />}>
