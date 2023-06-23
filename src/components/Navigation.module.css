@@ -41,3 +41,56 @@
 .nav > a:global(.active) > svg > * {
   fill: #fb1;
 }
+
+.mobileButton {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  background: #eee;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.mobileButton:focus,
+.mobileButton:hover,
+.mobileButtonActive {
+  outline: none;
+
+  background: #fff;
+  box-shadow: 0 0 0 3px #fea;
+  border-color: #fb1;
+  color: #fb1;
+}
+
+.mobileButton::after {
+  content: "";
+  display: block;
+
+  width: 1.25rem;
+  height: 2px;
+
+  border-radius: 2px;
+  background: currentColor;
+
+  box-shadow: 0 6px currentColor, 0 -6px currentColor;
+
+  /* É necessário para a animação, quando a classe .mobileButtonActive é 
+     adicionada ao elemento ela troca o after e assim é gerada uma animação */
+  transition: 0.2s;
+}
+
+.mobileButtonActive::after {
+  transform: rotate(90deg);
+
+  width: 4px;
+  height: 4px;
+
+  box-shadow: 0 8px currentColor, 0 -8px currentColor;
+}
