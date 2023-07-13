@@ -16,6 +16,8 @@ export function useMedia(media: string) {
       setMatch(matches);
     }
 
+    changeMatch();
+
     window.addEventListener("resize", changeMatch);
 
     return () => {
