@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 import styles from "./Navigation.module.css";
 
@@ -15,11 +15,17 @@ export function Navigation() {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const { logout } = useAuthContext();
 
+  const { pathname } = useLocation();
+
   const isMobile = useMedia("(max-width: 40rem)"); // 40rem = 540px
 
   function handleChangeMenuVisibility() {
     setMenuIsOpen((state) => !state);
   }
+
+  useEffect(() => {
+    setMenuIsOpen(false);
+  }, [pathname]);
 
   return (
     <>
