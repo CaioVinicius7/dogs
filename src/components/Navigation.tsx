@@ -33,27 +33,29 @@ export function Navigation() {
         />
       )}
 
-      {!isMobile && (
-        <nav className={styles.nav}>
-          <NavLink to="/account" end>
-            <Feed />
-            {isMobile && "Minhas Fotos"}
-          </NavLink>
-          <NavLink to="/account/stats">
-            <Stats />
-            {isMobile && "Estatísticas"}
-          </NavLink>
-          <NavLink to="/account/post">
-            <Plus />
-            {isMobile && "Adicionar Foto"}
-          </NavLink>
+      <nav
+        className={`${isMobile ? styles.mobileNav : styles.nav} ${
+          menuIsOpen && styles.activeMobileNav
+        }`}
+      >
+        <NavLink to="/account" end>
+          <Feed />
+          {isMobile && "Minhas Fotos"}
+        </NavLink>
+        <NavLink to="/account/stats">
+          <Stats />
+          {isMobile && "Estatísticas"}
+        </NavLink>
+        <NavLink to="/account/post">
+          <Plus />
+          {isMobile && "Adicionar Foto"}
+        </NavLink>
 
-          <button onClick={logout}>
-            <Logout />
-            {isMobile && "Sair"}
-          </button>
-        </nav>
-      )}
+        <button onClick={logout}>
+          <Logout />
+          {isMobile && "Sair"}
+        </button>
+      </nav>
     </>
   );
 }
