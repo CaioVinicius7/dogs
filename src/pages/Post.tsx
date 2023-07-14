@@ -62,7 +62,7 @@ export function Post() {
     handleSubmit,
     setError,
     reset,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<CreatePostFormFields>({
     resolver: zodResolver(createPostValidationSchema),
     shouldFocusError: true
@@ -174,7 +174,7 @@ export function Post() {
           onChange={handleImageChange}
         />
 
-        <Button>Enviar</Button>
+        <Button isLoading={isSubmitting}>Enviar</Button>
       </form>
 
       <div>
