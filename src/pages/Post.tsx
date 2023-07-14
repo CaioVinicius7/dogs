@@ -2,13 +2,16 @@ import { ChangeEvent, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
+
+import styles from "./Post.module.css";
 
 import { Button } from "../components/Form/Button";
 import { Input } from "../components/Form/Input";
 
-import { ReactComponent as Upload } from "../assets/upload.svg";
+import { postService } from "../services/post";
 
-import styles from "./Post.module.css";
+import { ReactComponent as Upload } from "../assets/upload.svg";
 
 interface Image {
   name: string;
@@ -57,6 +60,8 @@ export function Post() {
   const {
     register,
     handleSubmit,
+    setError,
+    reset,
     formState: { errors }
   } = useForm<CreatePostFormFields>({
     resolver: zodResolver(createPostValidationSchema),
@@ -76,16 +81,38 @@ export function Post() {
   }
 
   async function handleCreatePost({ name, weight, age }: CreatePostFormFields) {
-    if (!image) {
-      setError("root", {
-        message: "Selecione uma imagem"
+    try {
+      if (!image) {
+        setError("root", {
+          message: "Selecione uma imagem"
+        });
+
+        return;
+      }
+
+      await postService.createPost({
+        name,
+        weight,
+        age,
+        img: image.raw
       });
 
-      return;
-    }
+      reset();
+      setImage(null);
 
-    console.log("Submit Realizado");
-    console.log({ name, weight, age });
+      toast.success("Post criado com sucesso.", {
+        theme: "colored",
+        autoClose: 2500
+      });
+    } catch {
+      toast.error(
+        "Ocorreu um erro ao criar o post, tente novamente mais tarde.",
+        {
+          theme: "colored",
+          autoClose: 2500
+        }
+      );
+    }
   }
 
   return (
