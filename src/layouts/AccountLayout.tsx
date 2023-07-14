@@ -26,9 +26,9 @@ export function AccountLayout() {
         <h1 className="title">{title}</h1>
 
         <Navigation />
-
-        <Outlet />
       </header>
+
+      <Outlet />
     </main>
   );
 }
