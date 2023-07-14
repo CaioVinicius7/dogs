@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
+import { Post } from "./pages/Post";
 
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { LoginLayout } from "./layouts/LoginLayout";
@@ -20,7 +21,7 @@ export function Router() {
           <Route path="/account/*" element={<AccountLayout />}>
             <Route index element={<h2>Account</h2>} />
             <Route path="stats" element={<h2>Stats</h2>} />
-            <Route path="post" element={<h2>Post</h2>} />
+            <Route path="post" element={<Post />} />
           </Route>
         </Route>
 
