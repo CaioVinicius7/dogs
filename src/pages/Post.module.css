@@ -36,6 +36,12 @@
   display: block;
 }
 
+.error {
+  color: #f31;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
 @media (max-width: 40rem) {
   .photoPost {
     grid-template-columns: 1fr;

@@ -75,7 +75,15 @@ export function Post() {
     });
   }
 
-  function handleCreatePost({ name, weight, age }: CreatePostFormFields) {
+  async function handleCreatePost({ name, weight, age }: CreatePostFormFields) {
+    if (!image) {
+      setError("root", {
+        message: "Selecione uma imagem"
+      });
+
+      return;
+    }
+
     console.log("Submit Realizado");
     console.log({ name, weight, age });
   }
@@ -123,6 +131,10 @@ export function Post() {
 
           <span>{image ? image.name : "Nenhuma imagem selecionada"}</span>
         </div>
+
+        {!!errors.root && (
+          <p className={styles.error}>{errors.root?.message}</p>
+        )}
 
         <input
           name="img"
