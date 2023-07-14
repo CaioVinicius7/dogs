@@ -131,8 +131,8 @@ export function Register() {
           {...register("confirmPassword")}
         />
 
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Carregando..." : "Cadastrar"}
+        <Button type="submit" isLoading={isSubmitting}>
+          Cadastrar
         </Button>
       </form>
     </section>

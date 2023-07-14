@@ -66,8 +66,8 @@ export function Login() {
           {...register("password")}
         />
 
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Carregando..." : "Entrar"}
+        <Button type="submit" isLoading={isSubmitting}>
+          Entrar
         </Button>
       </form>
 
