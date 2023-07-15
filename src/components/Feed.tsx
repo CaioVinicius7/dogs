@@ -19,7 +19,11 @@ interface PostData {
   comments: number;
 }
 
-export function Feed() {
+interface FeedProps {
+  onSelectPost: (postId: number) => void;
+}
+
+export function Feed({ onSelectPost }: FeedProps) {
   const [posts, setPosts] = useState<PostData[] | null>(null);
 
   useEffect(() => {
@@ -37,14 +41,21 @@ export function Feed() {
 
   return (
     <ul className={`animationLeft ${styles.feed}`}>
-      {posts.map((post) => (
-        <Photo
-          key={post.id}
-          title={post.title}
-          url={post.url}
-          views={post.views}
-        />
-      ))}
+      {posts.map((post) => {
+        function handleSelectPost() {
+          onSelectPost(post.id);
+        }
+
+        return (
+          <Photo
+            key={post.id}
+            title={post.title}
+            url={post.url}
+            views={post.views}
+            onClick={handleSelectPost}
+          />
+        );
+      })}
     </ul>
   );
 }
