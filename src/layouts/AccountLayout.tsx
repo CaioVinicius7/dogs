@@ -17,7 +17,12 @@ export function AccountLayout() {
   const location = useLocation();
 
   useEffect(() => {
-    setTitle(pageTitle[location.pathname]);
+    const path =
+      location.pathname.charAt(location.pathname.length - 1) === "/"
+        ? location.pathname.slice(0, -1)
+        : location.pathname;
+
+    setTitle(pageTitle[path]);
   }, [location.pathname]);
 
   return (

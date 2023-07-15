@@ -6,8 +6,6 @@ import { Register } from "./pages/Register";
 import { Post } from "./pages/Post";
 import { NotFound } from "./pages/NotFound";
 
-import { Feed } from "./components/Feed";
-
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { LoginLayout } from "./layouts/LoginLayout";
 import { AccountLayout } from "./layouts/AccountLayout";
@@ -23,7 +21,7 @@ export function Router() {
 
         <Route element={<PrivateRoutes />}>
           <Route path="/account" element={<AccountLayout />}>
-            <Route index element={<Feed />} />
+            <Route index element={<h2>Account</h2>} />
             <Route path="stats" element={<h2>Stats</h2>} />
             <Route path="post" element={<Post />} />
           </Route>
