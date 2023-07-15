@@ -1,5 +1,17 @@
 import { api } from "../libs/axios";
 
+interface Post {
+  id: number;
+  author: string;
+  title: string;
+  date: string;
+  src: string;
+  peso: string;
+  idade: string;
+  acessos: string;
+  total_comments: string;
+}
+
 interface CreatePostRequest {
   name: string;
   weight: number;
@@ -13,16 +25,19 @@ interface GetPostsRequest {
   userId?: number;
 }
 
-interface GetPostsResponse {
-  id: number;
-  author: string;
-  title: string;
-  date: string;
-  src: string;
-  peso: string;
-  idade: string;
-  acessos: string;
-  total_comments: string;
+type GetPostsResponse = Post[];
+
+interface GetPostByIdRequest {
+  postId: number;
+}
+
+interface GetPostByIdResponse {
+  photo: Post;
+  comments: {
+    comment_ID: string;
+    comment_author: string;
+    comment_content: string;
+  }[];
 }
 
 export const postService = {
@@ -37,7 +52,7 @@ export const postService = {
     await api.post("/api/photo", formData);
   },
   getPosts: async ({ page, itemsPerPage, userId = 0 }: GetPostsRequest) => {
-    const { data } = await api.get<GetPostsResponse[]>("/api/photo", {
+    const { data } = await api.get<GetPostsResponse>("/api/photo", {
       params: {
         _page: page,
         _total: itemsPerPage,
@@ -58,6 +73,29 @@ export const postService = {
         comments: Number(photo.total_comments)
       };
     });
+
+    return formattedData;
+  },
+  getPostById: async ({ postId }: GetPostByIdRequest) => {
+    const { data } = await api.get<GetPostByIdResponse>(`/api/photo/${postId}`);
+
+    const formattedData = {
+      id: Number(data.photo.id),
+      author: data.photo.author,
+      title: data.photo.title,
+      date: data.photo.date,
+      url: data.photo.src,
+      weight: Number(data.photo.peso),
+      age: Number(data.photo.idade),
+      views: Number(data.photo.acessos),
+      comments: data.comments.map((comment) => {
+        return {
+          id: Number(comment.comment_ID),
+          author: comment.comment_author,
+          content: comment.comment_content
+        };
+      })
+    };
 
     return formattedData;
   }
