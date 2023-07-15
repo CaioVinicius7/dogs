@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styles from "./Post.module.css";
 
 import { Loading } from "./Loading";
+import { PostComments } from "./PostComments";
 
 import { postService } from "../services/post";
 
@@ -52,7 +53,7 @@ export function Post({ postId }: PostProps) {
 
       <div className={styles.details}>
         <p className={styles.author}>
-          <Link to={`/profile/:id`}>@{postData.author}</Link>
+          <Link to={`/profile/${postData.author}`}>@{postData.author}</Link>
           <span className={styles.views}>{postData.views}</span>
         </p>
 
@@ -67,7 +68,7 @@ export function Post({ postId }: PostProps) {
           </li>
         </ul>
 
-        <span>Comentários</span>
+        <PostComments comments={postData.comments} />
       </div>
     </div>
   );
