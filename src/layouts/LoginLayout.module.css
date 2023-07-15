@@ -1,5 +1,5 @@
 .container {
-  min-height: calc(100vh - 4rem - 2rem); /* 100vh - header - footer */
+  min-height: calc(100vh - 4rem); /* 100vh - header */
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);

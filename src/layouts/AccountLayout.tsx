@@ -28,7 +28,9 @@ export function AccountLayout() {
         <Navigation />
       </header>
 
-      <Outlet />
+      <div className={styles.accountLayoutContentContainer}>
+        <Outlet />
+      </div>
     </main>
   );
 }
