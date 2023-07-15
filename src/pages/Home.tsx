@@ -1,3 +1,11 @@
+import { Feed } from "../components/Feed";
+
+import styles from "./Home.module.css";
+
 export function Home() {
-  return <h1>Home</h1>;
+  return (
+    <section className={`container animationLeft ${styles.homeContainer}`}>
+      <Feed />
+    </section>
+  );
 }
