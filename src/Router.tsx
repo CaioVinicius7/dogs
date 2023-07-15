@@ -5,6 +5,8 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Post } from "./pages/Post";
 
+import { Feed } from "./components/Feed";
+
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { LoginLayout } from "./layouts/LoginLayout";
 import { AccountLayout } from "./layouts/AccountLayout";
@@ -19,7 +21,7 @@ export function Router() {
           <Route path="/" element={<Home />} />
 
           <Route path="/account/*" element={<AccountLayout />}>
-            <Route index element={<h2>Account</h2>} />
+            <Route index element={<Feed />} />
             <Route path="stats" element={<h2>Stats</h2>} />
             <Route path="post" element={<Post />} />
           </Route>

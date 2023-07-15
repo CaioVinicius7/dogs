@@ -1,0 +1,54 @@
+.photo:nth-child(2) {
+  grid-column: 2/4;
+  grid-row: span 2;
+}
+
+.photo {
+  border-radius: 4px;
+  overflow: hidden;
+
+  cursor: pointer;
+
+  display: grid;
+}
+
+.photo img {
+  grid-area: 1/1;
+}
+
+.views {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.3);
+
+  font-size: 1rem;
+  text-align: center;
+
+  grid-area: 1/1;
+
+  display: none;
+}
+
+.views::before {
+  content: "";
+  margin-right: 0.25rem;
+
+  background: url(../assets/views.svg) no-repeat;
+
+  width: 16px;
+  height: 10px;
+
+  display: inline-block;
+}
+
+.photo:hover .views {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 40rem) {
+  .photo:nth-child(2) {
+    grid-column: initial;
+    grid-row: initial;
+  }
+}
