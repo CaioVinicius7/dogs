@@ -17,9 +17,9 @@ export function Router() {
   return (
     <Routes>
       <Route element={<DefaultLayout />}>
-        <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
 
+        <Route element={<PrivateRoutes />}>
           <Route path="/account/*" element={<AccountLayout />}>
             <Route index element={<Feed />} />
             <Route path="stats" element={<h2>Stats</h2>} />
