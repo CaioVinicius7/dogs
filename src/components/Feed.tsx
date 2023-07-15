@@ -7,7 +7,7 @@ import { Loading } from "./Loading";
 
 import { postService } from "../services/post";
 
-interface PhotoData {
+interface PostData {
   id: number;
   author: string;
   title: string;
@@ -20,7 +20,7 @@ interface PhotoData {
 }
 
 export function Feed() {
-  const [photos, setPhotos] = useState<PhotoData[] | null>(null);
+  const [posts, setPosts] = useState<PostData[] | null>(null);
 
   useEffect(() => {
     postService
@@ -28,21 +28,21 @@ export function Feed() {
         page: 1,
         itemsPerPage: 6
       })
-      .then((response) => setPhotos(response));
+      .then((response) => setPosts(response));
   }, []);
 
-  if (!photos) {
+  if (!posts) {
     return <Loading />;
   }
 
   return (
     <ul className={`animationLeft ${styles.feed}`}>
-      {photos.map((photo) => (
+      {posts.map((post) => (
         <Photo
-          key={photo.id}
-          title={photo.title}
-          url={photo.url}
-          views={photo.views}
+          key={post.id}
+          title={post.title}
+          url={post.url}
+          views={post.views}
         />
       ))}
     </ul>
