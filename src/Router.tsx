@@ -4,6 +4,7 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Post } from "./pages/Post";
+import { NotFound } from "./pages/NotFound";
 
 import { Feed } from "./components/Feed";
 
@@ -18,16 +19,17 @@ export function Router() {
     <Routes>
       <Route element={<DefaultLayout />}>
         <Route path="/" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
 
         <Route element={<PrivateRoutes />}>
-          <Route path="/account/*" element={<AccountLayout />}>
+          <Route path="/account" element={<AccountLayout />}>
             <Route index element={<Feed />} />
             <Route path="stats" element={<h2>Stats</h2>} />
             <Route path="post" element={<Post />} />
           </Route>
         </Route>
 
-        <Route path="/login/*" element={<LoginLayout />}>
+        <Route path="/login" element={<LoginLayout />}>
           <Route index element={<Login />} />
           <Route path="create" element={<Register />} />
           <Route path="password/lost" element={<h1>/login/password/lost</h1>} />
