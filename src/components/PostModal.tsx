@@ -1,4 +1,4 @@
-import { MouseEvent } from "react";
+import { MouseEvent, useEffect } from "react";
 import { Post } from "./Post";
 
 import styles from "./PostModal.module.css";
@@ -14,6 +14,14 @@ export function PostModal({ postId, closeModal }: PostModalProps) {
       closeModal();
     }
   }
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
     <dialog className={styles.modal} onClick={handleOutsideClick}>
