@@ -69,7 +69,7 @@ export function Post({ postId }: PostProps) {
         </ul>
       </div>
 
-      <PostComments comments={postData.comments} />
+      <PostComments postId={postData.id} comments={postData.comments} />
     </div>
   );
 }

@@ -12,6 +12,12 @@ interface Post {
   total_comments: string;
 }
 
+interface Comment {
+  comment_ID: string;
+  comment_author: string;
+  comment_content: string;
+}
+
 interface CreatePostRequest {
   name: string;
   weight: number;
@@ -33,12 +39,20 @@ interface GetPostByIdRequest {
 
 interface GetPostByIdResponse {
   photo: Post;
-  comments: {
-    comment_ID: string;
-    comment_author: string;
-    comment_content: string;
-  }[];
+  comments: Comment[];
 }
+
+interface AddCommentRequest {
+  postId: number;
+  comment: string;
+}
+
+interface AddCommentRequest {
+  postId: number;
+  comment: string;
+}
+
+type AddCommentResponse = Comment;
 
 export const postService = {
   createPost: async ({ name, weight, age, img }: CreatePostRequest) => {
@@ -95,6 +109,22 @@ export const postService = {
           content: comment.comment_content
         };
       })
+    };
+
+    return formattedData;
+  },
+  addComment: async ({ postId, comment }: AddCommentRequest) => {
+    const { data } = await api.post<AddCommentResponse>(
+      `/api/comment/${postId}`,
+      {
+        comment
+      }
+    );
+
+    const formattedData = {
+      id: Number(data.comment_ID),
+      content: data.comment_content,
+      author: data.comment_author
     };
 
     return formattedData;

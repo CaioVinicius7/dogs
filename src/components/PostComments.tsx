@@ -1,21 +1,42 @@
+import { useState } from "react";
+
 import styles from "./PostComments.module.css";
 
 import { CommentForm } from "./CommentForm";
 
 import { useAuthContext } from "../hooks/useAuthContext";
 
-interface Comment {
+export interface Comment {
   id: number;
   author: string;
   content: string;
 }
 
 interface PostCommentsProps {
+  postId: number;
   comments: Comment[];
 }
 
-export function PostComments({ comments }: PostCommentsProps) {
+export function PostComments({
+  postId,
+  comments: commentsReceivedByProps
+}: PostCommentsProps) {
+  const [comments, setComments] = useState<Comment[]>(
+    () => commentsReceivedByProps
+  );
+
   const { isAuthenticated } = useAuthContext();
+
+  function handleAddComment({ id, content, author }: Comment) {
+    setComments((state) => [
+      ...state,
+      {
+        id,
+        content,
+        author
+      }
+    ]);
+  }
 
   return (
     <>
@@ -28,7 +49,9 @@ export function PostComments({ comments }: PostCommentsProps) {
         ))}
       </ul>
 
-      {isAuthenticated && <CommentForm />}
+      {isAuthenticated && (
+        <CommentForm postId={postId} onAddComment={handleAddComment} />
+      )}
     </>
   );
 }

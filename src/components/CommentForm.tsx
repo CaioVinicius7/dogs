@@ -1,10 +1,15 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { toast } from "react-toastify";
+
+import { Comment } from "./PostComments";
 
 import styles from "./CommentForm.module.css";
 
 import { ReactComponent as Send } from "../assets/send.svg";
+
+import { postService } from "../services/post";
 
 const commentFormValidationSchema = z.object({
   comment: z
@@ -21,7 +26,12 @@ const commentFormValidationSchema = z.object({
 
 type CommentFormFields = z.infer<typeof commentFormValidationSchema>;
 
-export function CommentForm() {
+interface CommentFormProps {
+  postId: number;
+  onAddComment: (comment: Comment) => void;
+}
+
+export function CommentForm({ postId, onAddComment }: CommentFormProps) {
   const {
     register,
     handleSubmit,
@@ -33,9 +43,27 @@ export function CommentForm() {
   });
 
   async function handleAddComment({ comment }: CommentFormFields) {
-    console.log({ comment });
+    try {
+      const { id, content, author } = await postService.addComment({
+        postId,
+        comment
+      });
 
-    reset();
+      onAddComment({
+        id,
+        content,
+        author
+      });
+    } catch {
+      toast.error(
+        "Erro ao adicionar o comentário. Tente novamente mais tarde",
+        {
+          theme: "colored"
+        }
+      );
+    } finally {
+      reset();
+    }
   }
 
   return (
