@@ -1,0 +1,7 @@
+.defaultLayoutContentContainer {
+  min-height: calc(
+    100vh - 4rem - 4rem
+  ); /* 100vh - header - mt da página home */
+
+  flex: 1; /* Preenche todo o corpo para o footer ficar sempre no final  */
+}
