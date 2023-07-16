@@ -67,9 +67,9 @@ export function Post({ postId }: PostProps) {
             {postData.age} {postData.age === 1 ? "ano" : "anos"}
           </li>
         </ul>
-
-        <PostComments comments={postData.comments} />
       </div>
+
+      <PostComments comments={postData.comments} />
     </div>
   );
 }
