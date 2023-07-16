@@ -47,19 +47,23 @@
   cursor: pointer;
 }
 
-.button:hover svg,
-.button:focus svg {
+.button:disabled {
+  cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) svg,
+.button:focus:not(:disabled) svg {
   outline: none;
 }
 
-.button:hover svg path,
-.button:focus svg path {
+.button:hover:not(:disabled) svg path,
+.button:focus:not(:disabled) svg path {
   fill: #fea;
   stroke: #fb1;
 }
 
-.button:focus svg g,
-.button:hover svg g {
+.button:focus:not(:disabled) svg g,
+.button:hover:not(:disabled) svg g {
   animation: barking 0.6s infinite;
 }
 
