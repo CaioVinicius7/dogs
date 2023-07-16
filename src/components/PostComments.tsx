@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import styles from "./PostComments.module.css";
 
@@ -25,6 +25,8 @@ export function PostComments({
     () => commentsReceivedByProps
   );
 
+  const commentsSection = useRef<HTMLUListElement>(null);
+
   const { isAuthenticated } = useAuthContext();
 
   function handleAddComment({ id, content, author }: Comment) {
@@ -38,9 +40,15 @@ export function PostComments({
     ]);
   }
 
+  useEffect(() => {
+    if (commentsSection.current) {
+      commentsSection.current.scrollTop = commentsSection.current.scrollHeight;
+    }
+  }, [comments]);
+
   return (
     <>
-      <ul className={styles.comments}>
+      <ul ref={commentsSection} className={styles.comments}>
         {comments.map((comment) => (
           <li key={comment.id}>
             <b>{comment.author}: </b>
