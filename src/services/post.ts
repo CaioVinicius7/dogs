@@ -70,8 +70,9 @@ export const postService = {
       params: {
         _page: page,
         _total: itemsPerPage,
-        _user: userId
-      }
+          _user: userId,
+          timestamp: new Date().getTime()
+        }
     });
 
     const formattedData = data.map((photo) => {
@@ -91,7 +92,14 @@ export const postService = {
     return formattedData;
   },
   getPostById: async ({ postId }: GetPostByIdRequest) => {
-    const { data } = await api.get<GetPostByIdResponse>(`/api/photo/${postId}`);
+    const { data } = await api.get<GetPostByIdResponse>(
+      `/api/photo/${postId}`,
+      {
+        params: {
+          timestamp: new Date().getTime()
+        }
+      }
+    );
 
     const formattedData = {
       id: Number(data.photo.id),
