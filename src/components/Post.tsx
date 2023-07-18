@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./Post.module.css";
 
+import { Image } from "./Image";
 import { Loading } from "./Loading";
 import { PostComments } from "./PostComments";
 import { DeletePostButton } from "./DeletePostButton";
@@ -53,7 +54,7 @@ export function Post({ postId }: PostProps) {
   return (
     <div className={styles.post}>
       <div className={styles.img}>
-        <img src={postData.url} alt={postData.title} />
+        <Image src={postData.url} alt={postData.title} />
       </div>
 
       <div className={styles.details}>
