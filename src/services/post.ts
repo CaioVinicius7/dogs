@@ -54,6 +54,10 @@ interface AddCommentRequest {
 
 type AddCommentResponse = Comment;
 
+interface DeletePostRequest {
+  postId: number;
+}
+
 export const postService = {
   createPost: async ({ name, weight, age, img }: CreatePostRequest) => {
     const formData = new FormData();
@@ -70,9 +74,9 @@ export const postService = {
       params: {
         _page: page,
         _total: itemsPerPage,
-          _user: userId,
-          timestamp: new Date().getTime()
-        }
+        _user: userId,
+        timestamp: new Date().getTime()
+      }
     });
 
     const formattedData = data.map((photo) => {
@@ -136,5 +140,8 @@ export const postService = {
     };
 
     return formattedData;
+  },
+  deletePost: async ({ postId }: DeletePostRequest) => {
+    await api.delete(`/api/photo/${postId}`);
   }
 };

@@ -1,0 +1,29 @@
+.deletePostButton {
+  padding: 0.3rem 0.6rem;
+  min-width: 65px;
+
+  line-height: 1;
+
+  background: #ddd;
+  border: 1px solid transparent;
+  border-radius: 6px;
+
+  font-size: 0.875rem;
+  font-family: var(--type-first);
+
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.deletePostButton:focus:not(:disabled),
+.deletePostButton:hover:not(:disabled) {
+  outline: none;
+
+  background: #fff;
+  box-shadow: 0 0 0 3px #eee;
+  border-color: #333;
+}
+
+.deletePostButton:disabled {
+  cursor: not-allowed;
+}

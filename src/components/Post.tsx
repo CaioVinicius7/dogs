@@ -5,8 +5,10 @@ import styles from "./Post.module.css";
 
 import { Loading } from "./Loading";
 import { PostComments } from "./PostComments";
+import { DeletePostButton } from "./DeletePostButton";
 
 import { postService } from "../services/post";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 interface PostComment {
   id: number;
@@ -32,6 +34,7 @@ interface PostProps {
 
 export function Post({ postId }: PostProps) {
   const [postData, setPostData] = useState<PostData | null>(null);
+  const { isAuthenticated, user } = useAuthContext();
 
   useEffect(() => {
     postService
@@ -45,6 +48,8 @@ export function Post({ postId }: PostProps) {
     return <Loading />;
   }
 
+  const isPostOwner = isAuthenticated && user?.username === postData.author;
+
   return (
     <div className={styles.post}>
       <div className={styles.img}>
@@ -53,7 +58,12 @@ export function Post({ postId }: PostProps) {
 
       <div className={styles.details}>
         <p className={styles.author}>
-          <Link to={`/profile/${postData.author}`}>@{postData.author}</Link>
+          {isPostOwner ? (
+            <DeletePostButton postId={postData.id} />
+          ) : (
+            <Link to={`/profile/${postData.author}`}>@{postData.author}</Link>
+          )}
+
           <span className={styles.views}>{postData.views}</span>
         </p>
 
