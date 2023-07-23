@@ -9,7 +9,7 @@ export function Home() {
   const postModalShouldBeOpen = !!postId;
 
   return (
-    <section className={`container mt-4`}>
+    <section className={`container mt-2`}>
       <Feed onSelectPost={setPostId} />
 
       {postModalShouldBeOpen && (
