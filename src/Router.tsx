@@ -6,6 +6,7 @@ import { Register } from "./pages/Register";
 import { Post } from "./pages/Post";
 import { NotFound } from "./pages/NotFound";
 import { UserFeed } from "./pages/UserFeed";
+import { PasswordLost } from "./pages/PasswordLost";
 
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { LoginLayout } from "./layouts/LoginLayout";
@@ -31,7 +32,7 @@ export function Router() {
         <Route path="/login" element={<LoginLayout />}>
           <Route index element={<Login />} />
           <Route path="create" element={<Register />} />
-          <Route path="password/lost" element={<h1>/login/password/lost</h1>} />
+          <Route path="password/lost" element={<PasswordLost />} />
           <Route
             path="password/reset"
             element={<h1>/login/password/reset</h1>}
