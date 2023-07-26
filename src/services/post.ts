@@ -1,62 +1,15 @@
 import { api } from "../libs/axios";
 
-interface Post {
-  id: number;
-  author: string;
-  title: string;
-  date: string;
-  src: string;
-  peso: string;
-  idade: string;
-  acessos: string;
-  total_comments: string;
-}
-
-interface Comment {
-  comment_ID: string;
-  comment_author: string;
-  comment_content: string;
-}
-
-interface CreatePostRequest {
-  name: string;
-  weight: number;
-  age: number;
-  img: File;
-}
-
-interface GetPostsRequest {
-  page: number;
-  itemsPerPage: number;
-  userId?: number;
-}
-
-type GetPostsResponse = Post[];
-
-interface GetPostByIdRequest {
-  postId: number;
-}
-
-interface GetPostByIdResponse {
-  photo: Post;
-  comments: Comment[];
-}
-
-interface AddCommentRequest {
-  postId: number;
-  comment: string;
-}
-
-interface AddCommentRequest {
-  postId: number;
-  comment: string;
-}
-
-type AddCommentResponse = Comment;
-
-interface DeletePostRequest {
-  postId: number;
-}
+import type {
+  AddCommentRequest,
+  AddCommentResponse,
+  CreatePostRequest,
+  DeletePostRequest,
+  GetPostByIdRequest,
+  GetPostByIdResponse,
+  GetPostsRequest,
+  GetPostsResponse
+} from "./types/post";
 
 export const postService = {
   createPost: async ({ name, weight, age, img }: CreatePostRequest) => {

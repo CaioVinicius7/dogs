@@ -1,17 +1,6 @@
 import { api } from "../libs/axios";
 
-interface RegisterRequest {
-  username: string;
-  email: string;
-  password: string;
-}
-
-interface GetUserDataResponse {
-  id: number;
-  nome: string;
-  username: string;
-  email: string;
-}
+import type { GetUserDataResponse, RegisterRequest } from "./types/user";
 
 export const userService = {
   register: async ({ username, email, password }: RegisterRequest) => {

@@ -1,13 +1,6 @@
 import { api } from "../libs/axios";
 
-interface LoginRequest {
-  username: string;
-  password: string;
-}
-
-interface LoginResponse {
-  token: string;
-}
+import type { LoginRequest, LoginResponse } from "./types/auth";
 
 export const authService = {
   login: async ({ username, password }: LoginRequest) => {
