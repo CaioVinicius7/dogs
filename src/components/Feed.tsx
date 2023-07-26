@@ -19,21 +19,27 @@ interface PostData {
   comments: number;
 }
 
+/**
+ *   A propriedade userId é recebida e repassada para o service quando queremos
+ *   buscar apenas o feed de um usuário específico
+ */
 interface FeedProps {
+  userId?: number;
   onSelectPost: (postId: number) => void;
 }
 
-export function Feed({ onSelectPost }: FeedProps) {
+export function Feed({ userId, onSelectPost }: FeedProps) {
   const [posts, setPosts] = useState<PostData[] | null>(null);
 
   useEffect(() => {
     postService
       .getPosts({
         page: 1,
-        itemsPerPage: 6
+        itemsPerPage: 6,
+        userId
       })
       .then((response) => setPosts(response));
-  }, []);
+  }, [userId]);
 
   if (!posts) {
     return <Loading />;
