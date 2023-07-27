@@ -7,6 +7,7 @@ import { Post } from "./pages/Post";
 import { NotFound } from "./pages/NotFound";
 import { UserFeed } from "./pages/UserFeed";
 import { PasswordLost } from "./pages/PasswordLost";
+import { PasswordReset } from "./pages/PasswordReset";
 
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { LoginLayout } from "./layouts/LoginLayout";
@@ -33,10 +34,7 @@ export function Router() {
           <Route index element={<Login />} />
           <Route path="create" element={<Register />} />
           <Route path="password/lost" element={<PasswordLost />} />
-          <Route
-            path="password/reset"
-            element={<h1>/login/password/reset</h1>}
-          />
+          <Route path="password/reset" element={<PasswordReset />} />
         </Route>
       </Route>
     </Routes>
