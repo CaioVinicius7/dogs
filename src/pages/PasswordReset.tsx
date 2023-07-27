@@ -1,11 +1,14 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { Input } from "../components/Form/Input";
 import { Button } from "../components/Form/Button";
+
+import { authService } from "../services/auth";
 
 const passwordResetFormValidationSchema = z.object({
   newPassword: z
@@ -44,7 +47,30 @@ export function PasswordReset() {
   });
 
   async function handleResetPassword({ newPassword }: PasswordResetFormFields) {
-    console.log({ newPassword });
+    try {
+      if (!key || !login) {
+        return;
+      }
+
+      await authService.passwordReset({
+        key,
+        usernameOrEmail: login,
+        newPassword
+      });
+
+      toast.success("Senha alterada com sucesso.", {
+        theme: "colored"
+      });
+
+      navigate("/login");
+    } catch {
+      toast.error(
+        "Ocorreu um erro ao alterar sua senha. Tente novamente mais tarde",
+        {
+          theme: "colored"
+        }
+      );
+    }
   }
 
   useEffect(() => {

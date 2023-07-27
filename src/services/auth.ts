@@ -3,7 +3,8 @@ import { api } from "../libs/axios";
 import type {
   LoginRequest,
   LoginResponse,
-  RecoveryPasswordRequest
+  RecoveryPasswordRequest,
+  ResetPasswordRequest
 } from "./types/auth";
 
 export const authService = {
@@ -23,6 +24,17 @@ export const authService = {
     await api.post("/api/password/lost", {
       login: emailOrUsername,
       url: returnUrl
+    });
+  },
+  passwordReset: async ({
+    key,
+    usernameOrEmail,
+    newPassword
+  }: ResetPasswordRequest) => {
+    await api.post("/api/password/reset", {
+      key,
+      login: usernameOrEmail,
+      password: newPassword
     });
   }
 };
