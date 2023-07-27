@@ -1,6 +1,10 @@
 import { api } from "../libs/axios";
 
-import type { LoginRequest, LoginResponse } from "./types/auth";
+import type {
+  LoginRequest,
+  LoginResponse,
+  RecoveryPasswordRequest
+} from "./types/auth";
 
 export const authService = {
   login: async ({ username, password }: LoginRequest) => {
@@ -12,5 +16,13 @@ export const authService = {
     return {
       token: data.token
     };
+  },
+  passwordLost: async ({ emailOrUsername }: RecoveryPasswordRequest) => {
+    const returnUrl = window.location.href.replace("lost", "reset");
+
+    await api.post("/api/password/lost", {
+      login: emailOrUsername,
+      url: returnUrl
+    });
   }
 };
