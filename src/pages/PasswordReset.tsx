@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -25,6 +27,14 @@ type PasswordResetFormFields = z.infer<
 >;
 
 export function PasswordReset() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const queryParams = new URLSearchParams(location.search);
+
+  const key = queryParams.get("key");
+  const login = queryParams.get("login");
+
   const {
     register,
     handleSubmit,
@@ -36,6 +46,12 @@ export function PasswordReset() {
   async function handleResetPassword({ newPassword }: PasswordResetFormFields) {
     console.log({ newPassword });
   }
+
+  useEffect(() => {
+    if (!key || !login) {
+      navigate("/login/create");
+    }
+  });
 
   return (
     <section>
