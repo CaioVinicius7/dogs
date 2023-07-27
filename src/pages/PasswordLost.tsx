@@ -6,7 +6,7 @@ import { Input } from "../components/Form/Input";
 import { Button } from "../components/Form/Button";
 
 const passwordLostFormValidationSchema = z.object({
-  email: z
+  emailOrPassword: z
     .string({ required_error: "Esse campo é obrigatório." })
     .min(3, "Esse campo deve ter no mínimo 3 caracteres.")
 });
@@ -23,9 +23,9 @@ export function PasswordLost() {
   });
 
   async function handleSendPasswordRecoveryEmail({
-    email
+    emailOrPassword
   }: PasswordLostFormFields) {
-    console.log({ email });
+    console.log({ emailOrPassword });
   }
 
   return (
@@ -35,8 +35,8 @@ export function PasswordLost() {
       <form onSubmit={handleSubmit(handleSendPasswordRecoveryEmail)}>
         <Input
           label="Email / Usuário"
-          error={errors.email?.message}
-          {...register("email")}
+          error={errors.emailOrPassword?.message}
+          {...register("emailOrPassword")}
         />
 
         <Button isLoading={isSubmitting}>Enviar Email</Button>
