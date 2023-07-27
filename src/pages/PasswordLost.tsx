@@ -79,7 +79,9 @@ export function PasswordLost() {
             {...register("emailOrUsername")}
           />
 
-          <Button isLoading={isSubmitting}>Enviar Email</Button>
+          <Button type="submit" isLoading={isSubmitting}>
+            Enviar Email
+          </Button>
         </form>
       )}
     </section>
