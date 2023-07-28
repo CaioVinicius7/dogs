@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 import { Feed } from "../components/Feed";
 import { PostModal } from "../components/PostModal";
@@ -13,12 +14,20 @@ export function UserFeed() {
   const { user } = useAuthContext();
 
   return (
-    <section>
-      <Feed userId={user?.id} onSelectPost={setPostId} />
+    <>
+      <Helmet>
+        <title>Meu Feed | Dogs</title>
 
-      {postModalShouldBeOpen && (
-        <PostModal postId={postId} closeModal={() => setPostId(null)} />
-      )}
-    </section>
+        <meta name="robots" content="noindex" />
+      </Helmet>
+
+      <section>
+        <Feed userId={user?.id} onSelectPost={setPostId} />
+
+        {postModalShouldBeOpen && (
+          <PostModal postId={postId} closeModal={() => setPostId(null)} />
+        )}
+      </section>
+    </>
   );
 }

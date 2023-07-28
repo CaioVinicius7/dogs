@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { isAxiosError } from "axios";
 
 import styles from "./PasswordLost.module.css";
 
@@ -10,7 +12,6 @@ import { Input } from "../components/Form/Input";
 import { Button } from "../components/Form/Button";
 
 import { authService } from "../services/auth";
-import { isAxiosError } from "axios";
 
 const passwordLostFormValidationSchema = z.object({
   emailOrUsername: z
@@ -66,24 +67,32 @@ export function PasswordLost() {
   }
 
   return (
-    <section>
-      <h1 className="title">Perdeu a senha?</h1>
+    <>
+      <Helmet>
+        <title>Recupere sua senha | Dogs</title>
 
-      {successMessage ? (
-        <p className={styles.successMessage}>{successMessage}</p>
-      ) : (
-        <form onSubmit={handleSubmit(handleSendPasswordRecoveryEmail)}>
-          <Input
-            label="Email / Usuário"
-            error={errors.emailOrUsername?.message}
-            {...register("emailOrUsername")}
-          />
+        <meta name="description" content="Recupere sua senha" />
+      </Helmet>
 
-          <Button type="submit" isLoading={isSubmitting}>
-            Enviar Email
-          </Button>
-        </form>
-      )}
-    </section>
+      <section>
+        <h1 className="title">Perdeu a senha?</h1>
+
+        {successMessage ? (
+          <p className={styles.successMessage}>{successMessage}</p>
+        ) : (
+          <form onSubmit={handleSubmit(handleSendPasswordRecoveryEmail)}>
+            <Input
+              label="Email / Usuário"
+              error={errors.emailOrUsername?.message}
+              {...register("emailOrUsername")}
+            />
+
+            <Button type="submit" isLoading={isSubmitting}>
+              Enviar Email
+            </Button>
+          </form>
+        )}
+      </section>
+    </>
   );
 }

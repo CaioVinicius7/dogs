@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
@@ -80,21 +81,29 @@ export function PasswordReset() {
   });
 
   return (
-    <section>
-      <h1 className="title">Recupere a Senha</h1>
+    <>
+      <Helmet>
+        <title>Altere sua senha | Dogs</title>
 
-      <form onSubmit={handleSubmit(handleResetPassword)}>
-        <Input
-          label="Nova senha"
-          type="password"
-          error={errors.newPassword?.message}
-          {...register("newPassword")}
-        />
+        <meta name="robots" content="noindex" />
+      </Helmet>
 
-        <Button type="submit" isLoading={isSubmitting}>
-          Recuperar
-        </Button>
-      </form>
-    </section>
+      <section>
+        <h1 className="title">Recupere a Senha</h1>
+
+        <form onSubmit={handleSubmit(handleResetPassword)}>
+          <Input
+            label="Nova senha"
+            type="password"
+            error={errors.newPassword?.message}
+            {...register("newPassword")}
+          />
+
+          <Button type="submit" isLoading={isSubmitting}>
+            Recuperar
+          </Button>
+        </form>
+      </section>
+    </>
   );
 }

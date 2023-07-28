@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 import { Feed } from "../components/Feed";
 import { PostModal } from "../components/PostModal";
@@ -9,12 +10,23 @@ export function Home() {
   const postModalShouldBeOpen = !!postId;
 
   return (
-    <section className={`container mt-2`}>
-      <Feed onSelectPost={setPostId} />
+    <>
+      <Helmet>
+        <title>Home | Dogs</title>
 
-      {postModalShouldBeOpen && (
-        <PostModal postId={postId} closeModal={() => setPostId(null)} />
-      )}
-    </section>
+        <meta
+          name="description"
+          content="Veja as ultima publicações e interaja com a comunidade!"
+        />
+      </Helmet>
+
+      <section className={`container mt-2`}>
+        <Feed onSelectPost={setPostId} />
+
+        {postModalShouldBeOpen && (
+          <PostModal postId={postId} closeModal={() => setPostId(null)} />
+        )}
+      </section>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import { ChangeEvent, useRef, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -116,77 +117,85 @@ export function Post() {
   }
 
   return (
-    <section className={`${styles.photoPost} animationLeft`}>
-      <form className={styles.form} onSubmit={handleSubmit(handleCreatePost)}>
-        <Input
-          type="text"
-          label="Nome"
-          error={errors.name?.message}
-          {...register("name")}
-        />
+    <>
+      <Helmet>
+        <title>Novo post | Dogs</title>
 
-        <Input
-          type="number"
-          label="Peso"
-          error={errors.weight?.message}
-          {...register("weight", {
-            setValueAs: (v) => (v === "" ? undefined : parseInt(v, 10))
-          })}
-        />
+        <meta name="robots" content="noindex" />
+      </Helmet>
 
-        <Input
-          type="number"
-          label="Idade"
-          error={errors.age?.message}
-          {...register("age", {
-            setValueAs: (v) => (v === "" ? undefined : parseInt(v, 10))
-          })}
-        />
-
-        <div className={styles.uploadImage}>
-          <Button
-            style={{
-              minWidth: "unset",
-              padding: "0.5rem 0.75rem"
-            }}
-            aria-label="Upload de arquivo"
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <Upload />
-          </Button>
-
-          <span>{image ? image.name : "Nenhuma imagem selecionada"}</span>
-        </div>
-
-        {!!errors.root && (
-          <p className={styles.error}>{errors.root?.message}</p>
-        )}
-
-        <input
-          name="img"
-          id="img"
-          type="file"
-          multiple={false}
-          accept="image/*"
-          className={styles.hide}
-          ref={fileInputRef}
-          onChange={handleImageChange}
-        />
-
-        <Button isLoading={isSubmitting}>Enviar</Button>
-      </form>
-
-      <div>
-        {!!image && image.preview && (
-          <div
-            className={styles.preview}
-            style={{
-              backgroundImage: `url("${image.preview}")`
-            }}
+      <section className={`${styles.photoPost} animationLeft`}>
+        <form className={styles.form} onSubmit={handleSubmit(handleCreatePost)}>
+          <Input
+            type="text"
+            label="Nome"
+            error={errors.name?.message}
+            {...register("name")}
           />
-        )}
-      </div>
-    </section>
+
+          <Input
+            type="number"
+            label="Peso"
+            error={errors.weight?.message}
+            {...register("weight", {
+              setValueAs: (v) => (v === "" ? undefined : parseInt(v, 10))
+            })}
+          />
+
+          <Input
+            type="number"
+            label="Idade"
+            error={errors.age?.message}
+            {...register("age", {
+              setValueAs: (v) => (v === "" ? undefined : parseInt(v, 10))
+            })}
+          />
+
+          <div className={styles.uploadImage}>
+            <Button
+              style={{
+                minWidth: "unset",
+                padding: "0.5rem 0.75rem"
+              }}
+              aria-label="Upload de arquivo"
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload />
+            </Button>
+
+            <span>{image ? image.name : "Nenhuma imagem selecionada"}</span>
+          </div>
+
+          {!!errors.root && (
+            <p className={styles.error}>{errors.root?.message}</p>
+          )}
+
+          <input
+            name="img"
+            id="img"
+            type="file"
+            multiple={false}
+            accept="image/*"
+            className={styles.hide}
+            ref={fileInputRef}
+            onChange={handleImageChange}
+          />
+
+          <Button isLoading={isSubmitting}>Enviar</Button>
+        </form>
+
+        <div>
+          {!!image && image.preview && (
+            <div
+              className={styles.preview}
+              style={{
+                backgroundImage: `url("${image.preview}")`
+              }}
+            />
+          )}
+        </div>
+      </section>
+    </>
   );
 }

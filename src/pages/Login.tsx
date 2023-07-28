@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -47,43 +48,54 @@ export function Login() {
   }
 
   return (
-    <section className="animationLeft">
-      <h1 className="title">Login</h1>
+    <>
+      <Helmet>
+        <title>Login | Dogs</title>
 
-      <form onSubmit={handleSubmit(handleLogin)} className={styles.form}>
-        <Input
-          type="text"
-          label="Usuário"
-          error={errors.username?.message}
-          autoComplete="off"
-          {...register("username")}
+        <meta
+          name="description"
+          content="Faça login desfrute da nossa plataforma!"
         />
+      </Helmet>
 
-        <Input
-          type="password"
-          label="Senha"
-          error={errors.password?.message}
-          {...register("password")}
-        />
+      <section className="animationLeft">
+        <h1 className="title">Login</h1>
 
-        <Button type="submit" isLoading={isSubmitting}>
-          Entrar
-        </Button>
-      </form>
+        <form onSubmit={handleSubmit(handleLogin)} className={styles.form}>
+          <Input
+            type="text"
+            label="Usuário"
+            error={errors.username?.message}
+            autoComplete="off"
+            {...register("username")}
+          />
 
-      <Link to="/login/password/lost" className={styles.passwordLost}>
-        Perdeu a senha?
-      </Link>
+          <Input
+            type="password"
+            label="Senha"
+            error={errors.password?.message}
+            {...register("password")}
+          />
 
-      <div className={styles.register}>
-        <h2 className={styles.subtitle}>Cadastre-se</h2>
+          <Button type="submit" isLoading={isSubmitting}>
+            Entrar
+          </Button>
+        </form>
 
-        <p>Ainda não possui conta? Cadastre-se no site.</p>
-
-        <Link to="/login/create" className={buttonStyles.button}>
-          Cadastro
+        <Link to="/login/password/lost" className={styles.passwordLost}>
+          Perdeu a senha?
         </Link>
-      </div>
-    </section>
+
+        <div className={styles.register}>
+          <h2 className={styles.subtitle}>Cadastre-se</h2>
+
+          <p>Ainda não possui conta? Cadastre-se no site.</p>
+
+          <Link to="/login/create" className={buttonStyles.button}>
+            Cadastro
+          </Link>
+        </div>
+      </section>
+    </>
   );
 }

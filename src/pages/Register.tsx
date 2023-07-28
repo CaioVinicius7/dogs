@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -99,42 +100,53 @@ export function Register() {
   }
 
   return (
-    <section className="animationLeft">
-      <h1 className="title">Cadastre-se</h1>
+    <>
+      <Helmet>
+        <title>Cadastro | Dogs</title>
 
-      <form onSubmit={handleSubmit(handleRegisterAndLogin)}>
-        <Input
-          type="text"
-          label="Usuário"
-          error={errors.username?.message}
-          {...register("username")}
+        <meta
+          name="description"
+          content="Crie sua conta e desfrute da nossa plataforma!"
         />
+      </Helmet>
 
-        <Input
-          type="text"
-          label="E-mail"
-          error={errors.email?.message}
-          {...register("email")}
-        />
+      <section className="animationLeft">
+        <h1 className="title">Cadastre-se</h1>
 
-        <Input
-          type="password"
-          label="Senha"
-          error={errors.password?.message}
-          {...register("password")}
-        />
+        <form onSubmit={handleSubmit(handleRegisterAndLogin)}>
+          <Input
+            type="text"
+            label="Usuário"
+            error={errors.username?.message}
+            {...register("username")}
+          />
 
-        <Input
-          type="password"
-          label="Confirmar senha"
-          error={errors.confirmPassword?.message}
-          {...register("confirmPassword")}
-        />
+          <Input
+            type="text"
+            label="E-mail"
+            error={errors.email?.message}
+            {...register("email")}
+          />
 
-        <Button type="submit" isLoading={isSubmitting}>
-          Cadastrar
-        </Button>
-      </form>
-    </section>
+          <Input
+            type="password"
+            label="Senha"
+            error={errors.password?.message}
+            {...register("password")}
+          />
+
+          <Input
+            type="password"
+            label="Confirmar senha"
+            error={errors.confirmPassword?.message}
+            {...register("confirmPassword")}
+          />
+
+          <Button type="submit" isLoading={isSubmitting}>
+            Cadastrar
+          </Button>
+        </form>
+      </section>
+    </>
   );
 }
