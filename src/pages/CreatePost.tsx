@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 
-import styles from "./Post.module.css";
+import styles from "./CreatePost.module.css";
 
 import { Button } from "../components/Form/Button";
 import { Input } from "../components/Form/Input";
@@ -53,7 +53,7 @@ const createPostValidationSchema = z.object({
 
 type CreatePostFormFields = z.infer<typeof createPostValidationSchema>;
 
-export function Post() {
+export function CreatePost() {
   const [image, setImage] = useState<Image | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
