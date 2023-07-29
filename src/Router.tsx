@@ -8,6 +8,7 @@ import { NotFound } from "./pages/NotFound";
 import { UserFeed } from "./pages/UserFeed";
 import { PasswordLost } from "./pages/PasswordLost";
 import { PasswordReset } from "./pages/PasswordReset";
+import { UserProfile } from "./pages/UserProfile";
 
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { LoginLayout } from "./layouts/LoginLayout";
@@ -20,6 +21,7 @@ export function Router() {
     <Routes>
       <Route element={<DefaultLayout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/profile/:username" element={<UserProfile />} />
         <Route path="*" element={<NotFound />} />
 
         <Route element={<PrivateRoutes />}>
