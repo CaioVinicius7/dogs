@@ -74,7 +74,7 @@ export function PasswordLost() {
         <meta name="description" content="Recupere sua senha" />
       </Helmet>
 
-      <section>
+      <section className="animationLeft">
         <h1 className="title">Perdeu a senha?</h1>
 
         {successMessage ? (

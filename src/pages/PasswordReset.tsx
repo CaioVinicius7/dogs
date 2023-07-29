@@ -88,7 +88,7 @@ export function PasswordReset() {
         <meta name="robots" content="noindex" />
       </Helmet>
 
-      <section>
+      <section className="animationLeft">
         <h1 className="title">Recupere a Senha</h1>
 
         <form onSubmit={handleSubmit(handleResetPassword)}>
