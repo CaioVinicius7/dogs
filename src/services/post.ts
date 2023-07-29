@@ -22,12 +22,16 @@ export const postService = {
 
     await api.post("/api/photo", formData);
   },
-  getPosts: async ({ page, itemsPerPage, userId = 0 }: GetPostsRequest) => {
+  getPosts: async ({
+    page,
+    itemsPerPage,
+    userIdOrUsername = 0
+  }: GetPostsRequest) => {
     const { data } = await api.get<GetPostsResponse>("/api/photo", {
       params: {
         _page: page,
         _total: itemsPerPage,
-        _user: userId,
+        _user: userIdOrUsername,
         timestamp: new Date().getTime()
       }
     });

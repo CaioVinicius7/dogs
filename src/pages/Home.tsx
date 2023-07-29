@@ -20,13 +20,13 @@ export function Home() {
         />
       </Helmet>
 
-      <section className={`container mt-2`}>
+      <main className={`container mt-2`}>
         <Feed onSelectPost={setPostId} />
 
         {postModalShouldBeOpen && (
           <PostModal postId={postId} closeModal={() => setPostId(null)} />
         )}
-      </section>
+      </main>
     </>
   );
 }

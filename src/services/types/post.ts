@@ -26,7 +26,7 @@ export interface CreatePostRequest {
 export interface GetPostsRequest {
   page: number;
   itemsPerPage: number;
-  userId?: number;
+  userIdOrUsername?: number | string;
 }
 
 export type GetPostsResponse = Post[];

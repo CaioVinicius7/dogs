@@ -27,11 +27,11 @@ interface PostData {
  *   buscar apenas o feed de um usuário específico
  */
 interface FeedProps {
-  userId?: number;
+  userIdOrUsername?: number | string;
   onSelectPost: (postId: number) => void;
 }
 
-export function Feed({ userId, onSelectPost }: FeedProps) {
+export function Feed({ userIdOrUsername, onSelectPost }: FeedProps) {
   const [posts, setPosts] = useState<PostData[] | null>(null);
 
   const { isAuthenticated } = useAuthContext();
@@ -41,10 +41,10 @@ export function Feed({ userId, onSelectPost }: FeedProps) {
       .getPosts({
         page: 1,
         itemsPerPage: 6,
-        userId
+        userIdOrUsername
       })
       .then((response) => setPosts(response));
-  }, [userId]);
+  }, [userIdOrUsername]);
 
   if (!posts) {
     return <Loading />;

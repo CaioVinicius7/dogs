@@ -22,7 +22,7 @@ export function UserFeed() {
       </Helmet>
 
       <section>
-        <Feed userId={user?.id} onSelectPost={setPostId} />
+        <Feed userIdOrUsername={user?.id} onSelectPost={setPostId} />
 
         {postModalShouldBeOpen && (
           <PostModal postId={postId} closeModal={() => setPostId(null)} />
