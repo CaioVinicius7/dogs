@@ -1,4 +1,5 @@
 import { ChangeEvent, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -58,6 +59,8 @@ export function CreatePost() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -105,6 +108,8 @@ export function CreatePost() {
         theme: "colored",
         autoClose: 2500
       });
+
+      navigate("/account");
     } catch {
       toast.error(
         "Ocorreu um erro ao criar o post, tente novamente mais tarde.",
