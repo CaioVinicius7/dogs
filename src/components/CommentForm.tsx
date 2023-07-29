@@ -28,10 +28,15 @@ type CommentFormFields = z.infer<typeof commentFormValidationSchema>;
 
 interface CommentFormProps {
   postId: number;
+  single?: boolean;
   onAddComment: (comment: Comment) => void;
 }
 
-export function CommentForm({ postId, onAddComment }: CommentFormProps) {
+export function CommentForm({
+  postId,
+  single,
+  onAddComment
+}: CommentFormProps) {
   const {
     register,
     handleSubmit,
@@ -67,7 +72,10 @@ export function CommentForm({ postId, onAddComment }: CommentFormProps) {
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(handleAddComment)}>
+    <form
+      className={`${styles.form} ${single && styles.single}`}
+      onSubmit={handleSubmit(handleAddComment)}
+    >
       <textarea
         className={styles.textarea}
         aria-label="Adicione um comentário"

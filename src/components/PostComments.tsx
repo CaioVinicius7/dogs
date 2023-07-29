@@ -14,11 +14,13 @@ export interface Comment {
 
 interface PostCommentsProps {
   postId: number;
+  single?: boolean;
   comments: Comment[];
 }
 
 export function PostComments({
   postId,
+  single = false,
   comments: commentsReceivedByProps
 }: PostCommentsProps) {
   const [comments, setComments] = useState<Comment[]>(
@@ -48,7 +50,10 @@ export function PostComments({
 
   return (
     <>
-      <ul ref={commentsSection} className={styles.comments}>
+      <ul
+        ref={commentsSection}
+        className={`${styles.comments} ${single && styles.single}`}
+      >
         {comments.map((comment) => (
           <li key={comment.id}>
             <b>{comment.author}: </b>
@@ -58,7 +63,11 @@ export function PostComments({
       </ul>
 
       {isAuthenticated && (
-        <CommentForm postId={postId} onAddComment={handleAddComment} />
+        <CommentForm
+          postId={postId}
+          onAddComment={handleAddComment}
+          single={single}
+        />
       )}
     </>
   );

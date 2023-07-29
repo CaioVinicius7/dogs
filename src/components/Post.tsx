@@ -31,9 +31,10 @@ interface PostData {
 
 interface PostProps {
   postId: number;
+  single?: boolean;
 }
 
-export function Post({ postId }: PostProps) {
+export function Post({ postId, single = false }: PostProps) {
   const [postData, setPostData] = useState<PostData | null>(null);
   const { isAuthenticated, user } = useAuthContext();
 
@@ -52,7 +53,7 @@ export function Post({ postId }: PostProps) {
   const isPostOwner = isAuthenticated && user?.username === postData.author;
 
   return (
-    <div className={styles.post}>
+    <div className={`${styles.post} ${single && styles.single}`}>
       <div className={styles.img}>
         <Image src={postData.url} alt={postData.title} />
       </div>
@@ -69,7 +70,7 @@ export function Post({ postId }: PostProps) {
         </p>
 
         <h1 className="title">
-          <Link to={`/photo/${postData.id}`}>{postData.title}</Link>
+          <Link to={`/post/${postData.id}`}>{postData.title}</Link>
         </h1>
 
         <ul className={styles.attributes}>
@@ -80,7 +81,11 @@ export function Post({ postId }: PostProps) {
         </ul>
       </div>
 
-      <PostComments postId={postData.id} comments={postData.comments} />
+      <PostComments
+        postId={postData.id}
+        single={single}
+        comments={postData.comments}
+      />
     </div>
   );
 }

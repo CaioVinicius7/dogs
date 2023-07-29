@@ -67,6 +67,10 @@
   animation: barking 0.6s infinite;
 }
 
+.single.form {
+  margin: 1rem 0;
+}
+
 @keyframes barking {
   from {
     opacity: 0;

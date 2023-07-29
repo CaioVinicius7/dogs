@@ -79,6 +79,24 @@
   display: inline-block;
 }
 
+.single.post {
+  height: auto;
+
+  grid-template-columns: 1fr;
+}
+
+.single .details {
+  padding: 0;
+  padding-top: 1rem;
+}
+
+.single .img {
+  grid-row: 1;
+
+  border-radius: 4px;
+  overflow: hidden;
+}
+
 @keyframes scaleUp {
   to {
     opacity: initial;
