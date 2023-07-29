@@ -7,6 +7,22 @@
   gap: 1rem;
 }
 
+.emptyListMessageContainer {
+  padding-top: 6rem;
+  text-align: center;
+
+  display: grid;
+  gap: 1rem;
+}
+
+.emptyListMessageContainer a {
+  color: #0000ee;
+}
+
+.emptyListMessageContainer a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 40rem) {
   .feed {
     grid-template-columns: repeat(2, 1fr);

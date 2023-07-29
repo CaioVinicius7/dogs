@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import styles from "./Feed.module.css";
 
@@ -6,6 +7,8 @@ import { Photo } from "./Photo";
 import { Loading } from "./Loading";
 
 import { postService } from "../services/post";
+
+import { useAuthContext } from "../hooks/useAuthContext";
 
 interface PostData {
   id: number;
@@ -31,6 +34,8 @@ interface FeedProps {
 export function Feed({ userId, onSelectPost }: FeedProps) {
   const [posts, setPosts] = useState<PostData[] | null>(null);
 
+  const { isAuthenticated } = useAuthContext();
+
   useEffect(() => {
     postService
       .getPosts({
@@ -43,6 +48,21 @@ export function Feed({ userId, onSelectPost }: FeedProps) {
 
   if (!posts) {
     return <Loading />;
+  }
+
+  if (posts.length === 0) {
+    return (
+      <div className={styles.emptyListMessageContainer}>
+        <h2>Ops! Nenhum post encontrado</h2>
+
+        {isAuthenticated && (
+          <span>
+            <Link to="/account/post">Clique aqui</Link> e crie seu primeiro
+            post.
+          </span>
+        )}
+      </div>
+    );
   }
 
   return (
