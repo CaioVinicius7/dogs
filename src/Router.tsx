@@ -10,6 +10,7 @@ import { PasswordLost } from "./pages/PasswordLost";
 import { PasswordReset } from "./pages/PasswordReset";
 import { UserProfile } from "./pages/UserProfile";
 import { Post } from "./pages/Post";
+import { Stats } from "./pages/Stats";
 
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { LoginLayout } from "./layouts/LoginLayout";
@@ -29,7 +30,7 @@ export function Router() {
         <Route element={<PrivateRoutes />}>
           <Route path="/account" element={<AccountLayout />}>
             <Route index element={<UserFeed />} />
-            <Route path="stats" element={<h2>Stats</h2>} />
+            <Route path="stats" element={<Stats />} />
             <Route path="post" element={<CreatePost />} />
           </Route>
         </Route>
