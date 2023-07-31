@@ -1,38 +1,63 @@
 import { useEffect, useState } from "react";
 import { VictoryPie, VictoryChart, VictoryBar } from "victory";
+import { Link } from "react-router-dom";
 
 import styles from "./Stats.module.css";
+
+import { Loading } from "../components/Loading";
 
 import { statsService } from "../services/stats";
 
 interface GraphData {
-  x: string;
+  x?: string;
   y: number;
 }
 
 export function Stats() {
   const [accessCount, setAccessCount] = useState(0);
   const [graphData, setGraphData] = useState<GraphData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    statsService.getStats().then((response) => {
-      const access = response.reduce(
-        (accumulator, currentValue) => accumulator + currentValue.access,
-        0
-      );
+    statsService
+      .getStats()
+      .then((response) => {
+        const access = response.reduce(
+          (accumulator, currentValue) => accumulator + currentValue.access,
+          0
+        );
 
-      setAccessCount(access);
+        setAccessCount(access);
 
-      const graphData = response.map((postStats) => {
-        return {
-          x: postStats.title,
-          y: postStats.access
-        };
+        const graphData = response.map((postStats) => {
+          return {
+            x: postStats.title,
+            y: postStats.access
+          };
+        });
+
+        setGraphData(graphData);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-
-      setGraphData(graphData);
-    });
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (graphData.length === 0) {
+    return (
+      <div className={styles.emptyStatsMessageContainer}>
+        <h2>Ops! Parece que você náo tem nenhum post para podermos analisar</h2>
+
+        <span>
+          <Link to="/account/post">Clique aqui</Link> e crie seu primeiro post.
+        </span>
+      </div>
+    );
+  }
 
   return (
     <section className={`${styles.statsContainer} animationLeft`}>

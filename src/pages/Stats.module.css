@@ -24,6 +24,22 @@
   align-items: center;
 }
 
+.emptyStatsMessageContainer {
+  padding-top: 6rem;
+  text-align: center;
+
+  display: grid;
+  gap: 1rem;
+}
+
+.emptyStatsMessageContainer a {
+  color: #0000ee;
+}
+
+.emptyStatsMessageContainer a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 40rem) {
   .statsContainer {
     grid-template-columns: 1fr;
