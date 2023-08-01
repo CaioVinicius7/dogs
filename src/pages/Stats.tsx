@@ -9,11 +9,11 @@ import { Loading } from "../components/Loading";
 import { statsService } from "../services/stats";
 
 interface GraphData {
-  x?: string;
+  x: string;
   y: number;
 }
 
-export function Stats() {
+export default function Stats() {
   const [accessCount, setAccessCount] = useState(0);
   const [graphData, setGraphData] = useState<GraphData[]>([]);
   const [isLoading, setIsLoading] = useState(true);

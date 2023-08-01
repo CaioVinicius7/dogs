@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { Home } from "./pages/Home";
@@ -10,7 +11,8 @@ import { PasswordLost } from "./pages/PasswordLost";
 import { PasswordReset } from "./pages/PasswordReset";
 import { UserProfile } from "./pages/UserProfile";
 import { Post } from "./pages/Post";
-import { Stats } from "./pages/Stats";
+
+const Stats = lazy(() => import("./pages/Stats"));
 
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { LoginLayout } from "./layouts/LoginLayout";
@@ -30,7 +32,14 @@ export function Router() {
         <Route element={<PrivateRoutes />}>
           <Route path="/account" element={<AccountLayout />}>
             <Route index element={<UserFeed />} />
-            <Route path="stats" element={<Stats />} />
+            <Route
+              path="stats"
+              element={
+                <Suspense fallback={<></>}>
+                  <Stats />
+                </Suspense>
+              }
+            />
             <Route path="post" element={<CreatePost />} />
           </Route>
         </Route>
